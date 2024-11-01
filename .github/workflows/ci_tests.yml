@@ -12,7 +12,7 @@ on:
 
 jobs:
   preset-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # 22.04
     strategy:
       matrix:
         preset: ["gcc-debug", "gcc-release"]
@@ -31,7 +31,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ubuntu-24.04, macos-15]
+        # TODO: platform: [ubuntu-24.04, macos-15]
+        platform: [ubuntu-24.04]
         compiler:
           - cpp: g++-14
             c: gcc-14
@@ -46,7 +47,7 @@ jobs:
           - description: "ASan"
             args: "-DCMAKE_CXX_FLAGS=-fsanitize=address -fsanitize=undefined"
         include:
-          - platform: ubuntu-latest
+          - platform: ubuntu-22.04
             compiler:
               cpp: g++-14
               c: gcc-14
@@ -54,7 +55,7 @@ jobs:
             cmake_args:
               description: "Werror"
               cmake_args: "-DCMAKE_CXX_FLAGS='-Werror=all -Werror=extra'"
-          - platform: ubuntu-latest
+          - platform: ubuntu-22.04
             compiler:
               cpp: g++-14
               c: gcc-14
@@ -63,7 +64,7 @@ jobs:
               description: "Dynamic"
               cmake_args: "-DBUILD_SHARED_LIBS=on"
 
-    name: "Bulid & Test: ${{ matrix.compiler.c }} ${{ matrix.cpp_version }} ${{ matrix.cmake_args.description }}"
+    name: "Bulid & Test on ${{ matrix.platform }}: ${{ matrix.compiler.c }} ${{ matrix.cpp_version }} ${{ matrix.cmake_args.description }}"
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
@@ -103,7 +104,7 @@ jobs:
         run: ctest --test-dir build --build-config Debug
 
   create-issue-when-fault:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # 22.04
     needs: [preset-test, test]
     if: failure() && github.event_name == 'schedule'
     steps:

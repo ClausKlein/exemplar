@@ -15,7 +15,7 @@ include(GNUInstallDirs)
 
 add_subdirectory(src/beman/exemplar)
 
-option(BUILD_TESTING ${PROJECT_IS_TOP_LEVEL})
+option(BUILD_TESTING "build tests too" ${PROJECT_IS_TOP_LEVEL})
 if(BUILD_TESTING)
     enable_testing()
 
