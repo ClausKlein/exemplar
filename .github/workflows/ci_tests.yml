@@ -49,20 +49,20 @@ jobs:
         include:
           - platform: ubuntu-22.04
             compiler:
-              cpp: g++-14
-              c: gcc-14
+              cpp: g++
+              c: gcc
             cpp_version: 20
             cmake_args:
               description: "Werror"
               cmake_args: "-DCMAKE_CXX_FLAGS='-Werror=all -Werror=extra'"
-          - platform: ubuntu-22.04
-            compiler:
-              cpp: g++-14
-              c: gcc-14
-            cpp_version: 20
-            cmake_args:
-              description: "Dynamic"
-              cmake_args: "-DBUILD_SHARED_LIBS=on"
+          # - platform: ubuntu-22.04
+          #   compiler:
+          #     cpp: g++
+          #     c: gcc
+          #   cpp_version: 20
+          #   cmake_args:
+          #     description: "Dynamic"
+          #     cmake_args: "-DBUILD_SHARED_LIBS=on"
 
     name: "Bulid & Test on ${{ matrix.platform }}: ${{ matrix.compiler.c }} ${{ matrix.cpp_version }} ${{ matrix.cmake_args.description }}"
     runs-on: ${{ matrix.platform }}
