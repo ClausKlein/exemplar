@@ -1,2 +1,11 @@
-/compile_commands.json
+#
+# TODO(CK): prevent in source build!
+#
+*.cmake
+/CMakeCache.txt
+/CMakeUserPresets.json
 /build
+/stagedir
+CMakeFiles/
+Makefile
+compile_commands.json

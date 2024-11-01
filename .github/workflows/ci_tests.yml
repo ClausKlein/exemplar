@@ -31,13 +31,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ubuntu-latest]
+        platform: [ubuntu-24.04, macos-15]
         compiler:
-          - cpp: g++
-            c: gcc
-          - cpp: clang++
-            c: clang
-        cpp_version: [17, 20, 23, 26]
+          - cpp: g++-14
+            c: gcc-14
+          - cpp: clang++-18
+            c: clang-18
+        cpp_version: [20, 23, 26]
         cmake_args:
           - description: "Default"
             args: ""
@@ -48,17 +48,17 @@ jobs:
         include:
           - platform: ubuntu-latest
             compiler:
-              cpp: g++
-              c: gcc
-            cpp_version: 17
+              cpp: g++-14
+              c: gcc-14
+            cpp_version: 20
             cmake_args:
               description: "Werror"
               cmake_args: "-DCMAKE_CXX_FLAGS='-Werror=all -Werror=extra'"
           - platform: ubuntu-latest
             compiler:
-              cpp: g++
-              c: gcc
-            cpp_version: 17
+              cpp: g++-14
+              c: gcc-14
+            cpp_version: 20
             cmake_args:
               description: "Dynamic"
               cmake_args: "-DBUILD_SHARED_LIBS=on"
@@ -70,7 +70,7 @@ jobs:
       - name: Install Ninja
         uses: lukka/get-cmake@latest
         with:
-          cmakeVersion: "~3.25.0"
+          cmakeVersion: "~3.30.0"
           ninjaVersion: "^1.11.1"
       - name: Print installed softwares
         run: |
