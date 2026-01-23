@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.30)
 
 include(FetchContent)
 
@@ -167,7 +167,6 @@ function(BemanExemplar_provideDependency method package_name)
                     GIT_TAG "${BemanExemplar_tag}"
                     EXCLUDE_FROM_ALL
                 )
-                set(INSTALL_GTEST OFF) # Disable GoogleTest installation
                 FetchContent_MakeAvailable("${BemanExemplar_name}")
 
                 # Important! <PackageName>_FOUND tells CMake that `find_package` is
