@@ -1,6 +1,12 @@
 {
   "dependencies": [
     {
+      "name": "inplace_vector",
+      "package_name": "inplace_vector",
+      "git_repository": "https://github.com/bemanproject/inplace_vector.git",
+      "git_tag": "b1c7c7a01ede9cf5d1f91434f77f267b66ac2719"
+    },
+    {
       "name": "googletest",
       "package_name": "GTest",
       "git_repository": "https://github.com/google/googletest.git",

@@ -4,6 +4,10 @@
 /compile_commands.json
 /CMakeUserPresets.json
 /build
+/src
+/GNUmakefile
+/cmake/presets
+/cmake/CMakeUserPresets.json
 
 # ignore emacs temp files
 *~

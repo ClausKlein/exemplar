@@ -34,6 +34,8 @@ if(BEMAN_EXEMPLAR_BUILD_SHARED)
     set(BUILD_SHARED_LIBS ON)
 endif()
 
+find_package(inplace_vector 1.0.0 REQUIRED)
+
 if(BEMAN_HAS_MODULES)
     # Require C++20 or newer with extensions for modules!
     set(CMAKE_CXX_EXTENSIONS ON)
@@ -45,6 +47,7 @@ if(BEMAN_HAS_MODULES)
     target_compile_definitions(beman.exemplar PUBLIC BEMAN_HAS_MODULES)
 else()
     add_library(beman.exemplar INTERFACE)
+    target_link_libraries(beman.exemplar INTERFACE beman::inplace_vector)
 endif()
 
 add_library(beman::exemplar ALIAS beman.exemplar)

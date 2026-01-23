@@ -1,3 +1,7 @@
+include(CMakeFindDependencyMacro)
+
+find_dependency(beman.inplace_vector)
+
 set(BEMAN_EXEMPLAR_VERSION @PROJECT_VERSION@)
 
 @PACKAGE_INIT@
