@@ -4,6 +4,8 @@ module;
 
 #include <utility>
 
+#include <beman/inplace_vector/inplace_vector.hpp>
+
 export module beman.exemplar;
 
 export namespace beman::exemplar {

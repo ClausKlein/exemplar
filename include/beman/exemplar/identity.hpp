@@ -22,6 +22,8 @@
 
 #include <utility> // std::forward
 
+#include <beman/inplace_vector/inplace_vector.hpp>
+
 namespace beman::exemplar {
 
 struct __is_transparent; // not defined

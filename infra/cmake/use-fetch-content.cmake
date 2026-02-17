@@ -165,7 +165,7 @@ function(BemanExemplar_provideDependency method package_name)
                     "${BemanExemplar_name}"
                     GIT_REPOSITORY "${BemanExemplar_repo}"
                     GIT_TAG "${BemanExemplar_tag}"
-                    # NO! EXCLUDE_FROM_ALL
+                    EXCLUDE_FROM_ALL
                 )
                 FetchContent_MakeAvailable("${BemanExemplar_name}")
 

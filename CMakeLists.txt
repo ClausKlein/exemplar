@@ -34,7 +34,7 @@ if(BEMAN_EXEMPLAR_BUILD_SHARED)
     set(BUILD_SHARED_LIBS ON)
 endif()
 
-find_package(inplace_vector 1.0.0 REQUIRED)
+find_package(inplace_vector CONFIG 1.0.0 REQUIRED)
 
 if(BEMAN_HAS_MODULES)
     # Require C++20 or newer with extensions for modules!
@@ -45,6 +45,7 @@ if(BEMAN_HAS_MODULES)
     # XXX add_library(beman.exemplar src/identity.cpp)
     add_library(beman.exemplar)
     target_compile_definitions(beman.exemplar PUBLIC BEMAN_HAS_MODULES)
+    target_link_libraries(beman.exemplar PUBLIC beman::inplace_vector)
 else()
     add_library(beman.exemplar INTERFACE)
     target_link_libraries(beman.exemplar INTERFACE beman::inplace_vector)

@@ -2,7 +2,7 @@
 
 set(BUILD_GMOCK OFF)
 set(INSTALL_GTEST OFF) # Disable GoogleTest installation
-find_package(GTest 7.9.6 EXACT REQUIRED)
+find_package(GTest CONFIG REQUIRED)
 
 add_executable(beman.exemplar.tests.identity)
 target_sources(beman.exemplar.tests.identity PRIVATE identity.test.cpp)
