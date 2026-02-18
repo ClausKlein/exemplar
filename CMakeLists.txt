@@ -47,8 +47,9 @@ if(BEMAN_USE_MODULES)
     add_library(beman::exemplar ALIAS beman.exemplar)
 endif()
 
-if(BEMAN_USE_MODULES AND CMAKE_CXX_MODULE_STD)
+if(BEMAN_USE_MODULES AND BEMAN_HAS_IMPORT_STD)
     target_compile_definitions(beman.exemplar PUBLIC BEMAN_HAS_IMPORT_STD)
+    set_target_properties(beman.exemplar PROPERTIES CXX_MODULE_STD ON)
 elseif(BEMAN_USE_MODULES)
     message(WARNING "Missing or disabled support for CMAKE_CXX_MODULE_STD!")
 endif()
@@ -67,8 +68,8 @@ add_subdirectory(include/beman/exemplar)
 # NOTE: this must be done before tests! CK
 include(./cmake/beman-install-library.cmake)
 beman_install_library(${PROJECT_NAME} TARGETS ${PROJECT_NAME} beman.exemplar_headers #
-    # FIXME: DEPENDENCIES [===[beman.inplace_vector 1.0.0]===] [===[beman.scope 0.0.1 EXACT]===] fmt
-    # TODO(CK): XXX OR XXX DEPENDENCIES "beman.inplace_vector 1.0.0;beman.scope 0.0.1 EXACT"
+    # TODO: DEPENDENCIES [===[beman.inplace_vector 1.0.0]===] [===[beman.scope 0.0.1 EXACT]===] fmt
+    # i.e.: DEPENDENCIES Threads
 )
 #===============================================================================
 
