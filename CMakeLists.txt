@@ -13,7 +13,7 @@ project(
 )
 
 # Modules opt in only on compilers that support it: msvc, g++-15 and clang-20+
-include(cxx-modules-rules)
+include(./cmake/cxx-modules-rules.cmake)
 
 # [CMAKE.SKIP_TESTS]
 option(
@@ -44,11 +44,19 @@ if(BEMAN_USE_MODULES)
     # XXX add_library(beman.exemplar src/identity.cpp)
     add_library(beman.exemplar)
     target_compile_definitions(beman.exemplar PUBLIC BEMAN_HAS_MODULES)
+    set_target_properties(
+        beman.exemplar
+        PROPERTIES
+            VERSION ${PROJECT_VERSION}
+            SOVERSION ${PROJECT_VERSION_MAJOR}
+            DLL_NAME_WITH_SOVERSION TRUE
+    )
     add_library(beman::exemplar ALIAS beman.exemplar)
 endif()
 
-if(BEMAN_USE_MODULES AND CMAKE_CXX_MODULE_STD)
+if(BEMAN_USE_MODULES AND BEMAN_HAS_IMPORT_STD)
     target_compile_definitions(beman.exemplar PUBLIC BEMAN_HAS_IMPORT_STD)
+    set_target_properties(beman.exemplar PROPERTIES CXX_MODULE_STD ON)
 elseif(BEMAN_USE_MODULES)
     message(WARNING "Missing or disabled support for CMAKE_CXX_MODULE_STD!")
 endif()
@@ -67,8 +75,8 @@ add_subdirectory(include/beman/exemplar)
 # NOTE: this must be done before tests! CK
 include(./cmake/beman-install-library.cmake)
 beman_install_library(${PROJECT_NAME} TARGETS ${PROJECT_NAME} beman.exemplar_headers #
-    # FIXME: DEPENDENCIES [===[beman.inplace_vector 1.0.0]===] [===[beman.scope 0.0.1 EXACT]===] fmt
-    # TODO(CK): XXX OR XXX DEPENDENCIES "beman.inplace_vector 1.0.0;beman.scope 0.0.1 EXACT"
+    # MAYBE: VERSION_SUFFIX
+    # TODO(CK): DEPENDENCIES [===[beman.inplace_vector 1.0.0]===] [===[beman.scope 0.0.1 EXACT]===] fmt
 )
 #===============================================================================
 

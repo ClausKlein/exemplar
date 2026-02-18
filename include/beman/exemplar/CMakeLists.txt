@@ -13,7 +13,7 @@ if(BEMAN_USE_MODULES)
     # NOTE: Require C++20 or newer for modules is needed here!
     target_compile_features(beman.exemplar PUBLIC cxx_std_${CMAKE_CXX_STANDARD})
     target_link_libraries(beman.exemplar PUBLIC beman::exemplar_headers)
-    if(WIN32 AND EXEMPLAR_BUILD_SHARED)
+    if(WIN32 AND BEMAN_EXEMPLAR_BUILD_SHARED)
         set_target_properties(
             beman.exemplar
             PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON
