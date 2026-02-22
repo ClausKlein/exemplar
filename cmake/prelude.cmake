@@ -18,6 +18,8 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
 # ---------------------------------------------------------------------------
+# The CMAKE_EXPERIMENTAL_CXX_IMPORT_STD is not longer needed except for OSX
+# ---------------------------------------------------------------------------
 if(NOT BEMAN_USE_STD_MODULE OR CMAKE_VERSION VERSION_GREATER_EQUAL 4.3)
     if(NOT APPLE)
         return()
@@ -41,10 +43,10 @@ if(CMAKE_VERSION VERSION_GREATER_EQUAL 4.2 AND CMAKE_VERSION VERSION_LESS 4.3)
 endif()
 # gersemi: on
 
-# TODO(CK): Do we need this HACK for linux too?
-# if(NOT APPLE)
-#     return()
-# endif()
+# TODO(CK): Do we need this HACK still for linux too?
+if(NOT APPLE)
+    return()
+endif()
 
 # FIXME: clang++ we still needs to export CXX=clang++
 if("$ENV{CXX}" STREQUAL "" AND CMAKE_CXX_COMPILER)
