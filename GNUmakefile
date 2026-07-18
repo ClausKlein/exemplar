@@ -18,7 +18,7 @@ ifeq (${hostSystemName},Darwin)
   # export CXXFLAGS:=-stdlib=libc++
   # export LDFLAGS:=-L$(LLVM_DIR)/lib/c++ -lc++abi # XXX -lc++
   # export CXX:=clang++
-  export GCOV:="llvm-cov gcov"
+  # export GCOV:="llvm-cov gcov"
 
   ### TODO: to test g++-16:
   export GCC_PREFIX:=$(shell brew --prefix gcc)
@@ -45,11 +45,12 @@ build/compile_commands.json: CMakeLists.txt GNUmakefile
 	${CMAKE} --version
 	${CMAKE} -S . -B build -G Ninja \
 	 -D BEMAN_USE_MODULES=YES \
-	 -D BEMAN_USE_STD_MODULE=NO \
-	 -D BEMAN_EXEMPLAR_USE_MODULES=NO \
+	 -D BEMAN_USE_STD_MODULE=YES \
+	 -D BEMAN_CYCLE_USE_MODULES=YES \
+	 -D BEMAN_EXEMPLAR_USE_MODULES=YES \
 	 -D CMAKE_CXX_STDLIB_MODULES_JSON=${CMAKE_CXX_STDLIB_MODULES_JSON} \
 	 -D CMAKE_BUILD_TYPE=Release \
-	 -D CMAKE_CXX_STANDARD=20 -D CMAKE_CXX_EXTENSIONS=NO -D CMAKE_CXX_STANDARD_REQUIRED=YES \
+	 -D CMAKE_CXX_STANDARD=26 -D CMAKE_CXX_EXTENSIONS=NO -D CMAKE_CXX_STANDARD_REQUIRED=YES \
 	 -D CMAKE_INSTALL_MESSAGE=LAZY \
 	 -D CMAKE_PROJECT_TOP_LEVEL_INCLUDES=./infra/cmake/use-fetch-content.cmake \
 	 --log-level=VERBOSE --fresh \
@@ -64,10 +65,11 @@ examples: examples/CMakeLists.txt
 	${CMAKE} -S examples -B examples/build -G Ninja \
 	 -D BEMAN_USE_MODULES=YES \
 	 -D BEMAN_USE_STD_MODULE=YES \
+	 -D BEMAN_CYCLE_USE_MODULES=YES \
 	 -D BEMAN_EXEMPLAR_USE_MODULES=YES \
 	 -D CMAKE_CXX_STDLIB_MODULES_JSON=${CMAKE_CXX_STDLIB_MODULES_JSON} \
 	 -D CMAKE_BUILD_TYPE=Release \
-	 -D CMAKE_CXX_STANDARD=23 -D CMAKE_CXX_EXTENSIONS=NO -D CMAKE_CXX_STANDARD_REQUIRED=YES \
+	 -D CMAKE_CXX_STANDARD=26 -D CMAKE_CXX_EXTENSIONS=NO -D CMAKE_CXX_STANDARD_REQUIRED=YES \
 	 --log-level=VERBOSE --fresh
 	ninja -C examples/build -v
 	ninja -C examples/build test
@@ -100,6 +102,8 @@ coverage: build/coverage
 	gcovr --merge-mode-functions separate
 
 format: distclean
+	-pre-commit install
+	-pre-commit autoupdate
 	pre-commit run --all
 
 demo: distclean
