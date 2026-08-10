@@ -6,7 +6,7 @@
 #include <beman/exemplar/config.hpp>
 #include <beman/exemplar/identity.hpp>
 
-#if BEMAN_EXEMPLAR_USE_MODULES()
+#if BEMAN_USE_STD_MODULE || BEMAN_EXEMPLAR_USE_MODULES()
 import std;
 #else
     #include <algorithm>
